@@ -126,7 +126,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 <body id="kt_body" class="app-blank">
 
-    <script src="js/theme.js"></script>
+    <script src="assets/js/theme.js"></script>
 
 
     <div class="d-flex flex-column flex-root" id="kt_app_root">

@@ -68,6 +68,7 @@ if (!isset($_SESSION['user_id'])) {
         unset($_SESSION['user_code']);
     }
       ?>
+	  
  	<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
 						
 						<div class="d-flex flex-column flex-column-fluid">
@@ -1601,5 +1602,5 @@ if (!isset($_SESSION['user_id'])) {
 		<script src="assets/js/custom/utilities/modals/create-app.js"></script>
 		<script src="assets/js/custom/utilities/modals/users-search.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="js/theme.js"></script>
+<script src="assets/js/theme.js"></script>
 </html>
