@@ -39,11 +39,21 @@ function verifyEmail($pdo,$email){
     }
 
 }
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); 
+}
 
 /* register proces */
 $errorMessage = "";
 $successMessage = "";
 if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+    if($_POST['token']!=$_SESSION['csrf_token']){
+        $errorMessage = "os tokens nao combinam";
+        header("Location: register.php?error=" . urlencode($errorMessage));
+        exit();
+    }
+
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -140,7 +150,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
                     <div class="w-lg-500px p-10">
 
                         <form class="form w-100" method="POST" action="">
-
+                        <input type="hidden" name="token" value="<?php echo $_SESSION['csrf_token']; ?>">
                             <div class="text-center mb-11">
 
                                 <h1 class="text-gray-900 fw-bolder mb-3">Sign Up</h1>

@@ -5,11 +5,21 @@ if (isset($_SESSION["user_id"])){
     header('location:index.php');
     exit();
 }
+
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); 
+}
 /* login process */
 $errorMessage = "";
 $successMessage = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    if($_POST['token']!=$_SESSION['csrf_token']){
+        $errorMessage = "os tokens nao combinam";
+        header("Location: login.php?error=" . urlencode($errorMessage));
+        exit();
+    }
     $email = $_POST['email'];
     $password = $_POST['password'];
 
@@ -82,14 +92,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="w-lg-500px p-10">
 
                         <form class="form w-100" method="POST" action="">
-
+                            <input type="hidden" name="token" value="<?php echo $_SESSION['csrf_token']; ?>">
                             <div class="text-center mb-11">
 
                                 <h1 class="text-gray-900 fw-bolder mb-3">Sign in</h1>
 
                             </div>
 
-                        
+
                             <div class="fv-row mb-8">
 
                                 <input required type="text" placeholder="Email" name="email" autocomplete="off"
