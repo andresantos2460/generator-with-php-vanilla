@@ -23,3 +23,27 @@ function myFunction() {
     document.body.removeChild(tempInput);
   }
 }
+
+const target = document.getElementById('kt_clipboard_1');
+const button = target.nextElementSibling;
+
+var clipboard = new ClipboardJS(button, {
+    target: target,
+    text: function() {
+        return target.value;
+    }
+});
+
+clipboard.on('success', function(e) {
+    const currentLabel = button.innerHTML;
+
+    if(button.innerHTML === 'Copied!'){
+        return;
+    }
+
+    button.innerHTML = 'Copied!';
+
+    setTimeout(function(){
+        button.innerHTML = currentLabel;
+    }, 3000)
+});
