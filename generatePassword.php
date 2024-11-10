@@ -68,7 +68,7 @@ function generatePassword($hasnumbers,$hasSymbols,$size){
         $characters .= $numbers;
     }
     if ($hasSymbols==='true') {
-        $characters .= implode('', $symbols); // Convert symbols array to a string
+        $characters .= implode('', $symbols);
     }
 
     for ($i = 0; $i < $size; $i++) {
