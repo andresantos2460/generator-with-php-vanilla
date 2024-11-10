@@ -53,13 +53,29 @@ function verifyCheckBox($input){
 }
 // function for password Generate!
 
-function generatePassword($hasLength,$hasSymbols,$sizeType){
+function generatePassword($hasnumbers,$hasSymbols,$size){
     
-    $generatedPassword;
+    $generatedPassword = '';
+    $letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $numbers='1234567890';
-    $symbols = '! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _ ` { | } ~';
-    $smalLength=12;
-    $LargeLength=32;
+    $symbols = [
+        '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', 
+        ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~'
+    ];
+    $characters = $letters;
+    
+    if($hasnumbers==='true'){
+        $characters .= $numbers;
+    }
+    if ($hasSymbols==='true') {
+        $characters .= implode('', $symbols); // Convert symbols array to a string
+    }
+
+    for ($i = 0; $i < $size; $i++) {
+        $generatedPassword .= $characters[rand(0, strlen($characters) - 1)];
+    }
+
+    return $generatedPassword;
 
 }
 
@@ -89,8 +105,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     $numbers = verifyCheckBox(isset($_POST['numbers']) ? $_POST['numbers'] : null);
     $symbols = verifyCheckBox(isset($_POST['Symbols']) ? $_POST['Symbols'] : null);
    
-
+    $generatedPassword=generatePassword($numbers,$symbols,$length);
 
     echo htmlspecialchars("$name,$email,$numbers,$symbols,$length");
+    echo ("<br> password:'$generatedPassword'");
 
 }
