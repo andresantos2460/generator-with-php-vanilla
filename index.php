@@ -2,7 +2,7 @@
 require 'db_connection.php';
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    header('Location: /login');
     exit(); 
 }
 
@@ -29,7 +29,7 @@ if (!isset($_SESSION['user_id'])) {
 <div class="container pt-5">
       <?php
       if (isset($_SESSION['user_code'])) {
-        echo ' <div style="background-color: #edfbd8 !important; position:relative;" class="alert alert-success" id="alert-modal" role="alert">
+        echo ' <div style="background-color: #edfbd8 !important; position:relative;" class="alert alert-success mx-9" id="alert-modal" role="alert">
                 <svg style="position:absolute; top:15px; right:15px;" xmlns="http://www.w3.org/2000/svg" width="22" height="22" id="close-button" fill="#2b641e" class="bi bi-x" viewBox="0 0 16 16">
   <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
 </svg>

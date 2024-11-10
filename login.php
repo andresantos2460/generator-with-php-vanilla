@@ -2,7 +2,7 @@
 session_start();
 require 'db_connection.php';
 if (isset($_SESSION["user_id"])){
-    header('location:index.php');
+    header('location:/index');
     exit();
 }
 
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if($_POST['token']!=$_SESSION['csrf_token']){
         $errorMessage = "os tokens nao combinam";
-        header("Location: login.php?error=" . urlencode($errorMessage));
+        header("Location: /login?error=" . urlencode($errorMessage));
         exit();
     }
     
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['name'] = $user['name'];  
 
                 $successMessage = "Login bem-sucedido! Redirecionando...";
-                header('refresh:1; url=index.php');  
+                header('refresh:1; url=/index');  
                 exit();  
             } else {
                 $errorMessage = "Senha incorreta.";
@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
                             <div class="text-gray-500 text-center fw-semibold fs-6">Dont have an Account?
-                                <a href="register.php" class="link-primary fw-semibold">Sign up</a>
+                                <a href="/register" class="link-primary fw-semibold">Sign up</a>
                             </div>
 
                         </form>

@@ -2,7 +2,7 @@
 require 'db_connection.php';
 session_start();
 if (isset($_SESSION['user_id'])) {
-    header('location:login.php');
+    header('location:/login');
     exit();
 }
 /* function generate code */
@@ -50,7 +50,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if($_POST['token']!=$_SESSION['csrf_token']){
         $errorMessage = "os tokens nao combinam";
-        header("Location: register.php?error=" . urlencode($errorMessage));
+        header("Location: /register?error=" . urlencode($errorMessage));
         exit();
     }
 
@@ -66,12 +66,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
      
         if($confirm_password != $password) {
             $errorMessage = "Passwords nao combinam";
-            header("Location: register.php?error=" . urlencode($errorMessage));
+            header("Location: /register?error=" . urlencode($errorMessage));
             exit();
 
         }else if($emailUnic==false){
             $errorMessage = "Erro, email em uso!";
-            header("Location: register.php?error=" . urlencode($errorMessage));
+            header("Location: /register?error=" . urlencode($errorMessage));
             exit();
         }
         {
@@ -89,7 +89,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
                 $_SESSION['user_id'] = $user_id;
                 $_SESSION['user_code'] = $code;
                 $_SESSION['name'] = $name;  
-                header('refresh:1; url=index.php');  // Aguardar 2 segundos e redirecionar
+                header('refresh:1; url=/index');  // Aguardar 2 segundos e redirecionar
     
             } else {
                 $errorMessage = "Erro ao criar Conta!";
@@ -249,7 +249,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
                             <div class="text-gray-500 text-center fw-semibold fs-6">Already have an Account?
-                                <a href="login.php" class="link-primary fw-semibold">Sign in</a>
+                                <a href="/login" class="link-primary fw-semibold">Sign in</a>
                             </div>
 
                         </form>
