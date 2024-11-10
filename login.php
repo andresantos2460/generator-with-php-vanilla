@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: login.php?error=" . urlencode($errorMessage));
         exit();
     }
+    
     $email = $_POST['email'];
     $password = $_POST['password'];
 
