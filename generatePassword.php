@@ -12,7 +12,6 @@ if (!isset($_SESSION['csrf_token'])) {
 }
 // verify length
 function verifyLength($length){
-    var_dump($length);
     if(empty($length)){
         $errorMessage = "Length Empty";
         header("Location: index.php?error=" . urlencode($errorMessage));
@@ -37,11 +36,20 @@ function verifyLength($length){
             $verifiedLength=32;
 
             return $verifiedLength;
-            
+
           break;
       
       }
+}
 
+// verify CheckBoxex
+function verifyCheckBox($input){
+    if(empty($input)){
+       $verifiedInput='false';
+    }else{
+       $verifiedInput='true';
+    }
+    return $verifiedInput;
 }
 // function for password Generate!
 
@@ -59,6 +67,13 @@ $errorMessage = "";
 $successMessage = "";
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
+    // verigy token
+    if($_POST['token']!=$_SESSION['csrf_token']){
+        $errorMessage = "os tokens nao combinam";
+        header("Location: index.php?error=" . urlencode($errorMessage));
+        exit();
+    }
+
     // app date
     $name=$_POST['name'];
     $email=$_POST['email'];
@@ -71,21 +86,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
     // password type
     $length=verifyLength($_POST['Length']);
-    $numbers =$_POST['numbers'] ?? 'false';
-    $symbols =$_POST['Symbols'] ?? 'false';
-
-
-    if(empty($_POST['Length'])){
-        $errorMessage = "Length empty";
-        header("Location: index.php?error=" . urlencode($errorMessage));
-        exit();
-    }
+    $numbers = verifyCheckBox(isset($_POST['numbers']) ? $_POST['numbers'] : null);
+    $symbols = verifyCheckBox(isset($_POST['Symbols']) ? $_POST['Symbols'] : null);
    
-    if($_POST['token']!=$_SESSION['csrf_token']){
-        $errorMessage = "os tokens nao combinam";
-        header("Location: index.php?error=" . urlencode($errorMessage));
-        exit();
-    }
 
 
     echo htmlspecialchars("$name,$email,$numbers,$symbols,$length");
