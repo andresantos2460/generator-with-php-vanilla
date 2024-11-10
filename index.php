@@ -5,6 +5,12 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: /login');
     exit(); 
 }
+$stmt = $pdo->prepare("SELECT app_name, app_email FROM generator WHERE user_id = :user_id");
+$stmt->execute([
+  ':user_id' => $_SESSION['user_id']
+]);
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 
 
 ?>
@@ -486,50 +492,92 @@ if (!isset($_SESSION['user_id'])) {
                     <span class="dt-column-title"><b>Passoword</b></span>
                     <span class="dt-column-title"><b>Action</b></span>
                   </div>
-                  <div class="item d-flex py-4 item-table align-items-center justify-content-between">
-                    <span>Laravel</span>
-                    <span>andresantosv2004@gmail.com</span>
-                    <!-- password visible -->
-                    <!-- 	<div class="card border-0">
-				<div class="card-body">
-					<div class="input-group">
-						<input id="kt_clipboard_1" type="text" class="form-control" placeholder="name@example.com" value="name@example.com" />
+                      <?php
+                      if(empty($results)){
+                        ?>
+                            <div class="alert alert-dismissible mt-3 bg-light-primary border border-primary d-flex flex-column flex-sm-row p-5 mb-10">
+                                <i class="ki-duotone ki-notification-bing fs-2hx text-primary me-4 mb-5 mb-sm-0"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
 
-						<button class="btn btn-light-primary" data-clipboard-target="#kt_clipboard_1">
-							Copy
-						</button>
-					</div>
-				</div>
-			</div> -->
-                    <!-- password not visible -->
-                    <div class="card border-0">
-                      <div class="card-body">
-                        <div class="input-group">
-                          <input disabled type="text" class="form-control" value="**********" />
+                                <div class="d-flex flex-column pe-0 pe-sm-10">
+                                    <h5 class="mb-1 text-primary">No password generated!</h5>
 
-                          <button class="btn btn-light-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
-                              <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z" />
-                              <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829" />
-                              <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z" />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
+                                    <span>Create your new password now!</span>
+                                </div>
 
+                                <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                                    <i class="ki-duotone ki-cross fs-1 text-primary"><span class="path1"></span><span class="path2"></span></i>
+                                </button>
+                            </div>
+                        <?php
+                      }
+                      ?>
+                         <?php
+                            foreach ($results as $result) {
+                            ?>
+                              <div class="item d-flex py-4 item-table align-items-center justify-content-between">
+                                
+                                <!-- App Name -->
+                                <span><?php echo htmlspecialchars($result['app_name']); ?></span>
+                                
+                                <!-- App Email -->
+                                <span><?php echo htmlspecialchars($result['app_email']); ?></span>
+                                
+                                <!-- Card for password field -->
+                                <div class="card border-0">
+                                  <div class="card-body">
+                                    <div class="input-group">
+                                      <input disabled type="text" class="form-control" value="**********" />
+                                      
+                                      <button class="btn btn-light-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
+                                          <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z" />
+                                          <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829" />
+                                          <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z" />
+                                        </svg>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                <!-- Actions button -->
+                                <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                  Actions <i class="ki-duotone ki-down fs-5 ms-1"></i>
+                                </a>
+                                
+                                <!-- Actions dropdown menu -->
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+                                  <div class="menu-item px-3">
+                                    <button type="submit" class="btn btn-sm w-100 btn-light-primary px-3" data-bs-toggle="modal" data-bs-target="#kt_modal_stacked_1">Delete</button>
+                                  </div>
+                                </div>
+                                <!-- modal delete ! -->
 
-                    <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                      <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
-                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
-                      <div class="menu-item px-3">
-                        <a href="apps/user-management/users/view.html" class="menu-link px-3">Edit</a>
-                      </div>
-                      <div class="menu-item px-3">
-                        <a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
-                      </div>
-                    </div>
-                  </div>
+                                                                          
+                                          <div class="modal fade" tabindex="-1" id="kt_modal_stacked_1">
+                                          <div class="modal-dialog modal-dialog-centered">
+                                              <div class="modal-content">
+                                                  <div class="modal-header">
+                                                      <h3 class="modal-title">Modal title</h3>
+                                                      <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                                          <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                                      </div>
+                                                  </div>
+
+                                                  <div class="modal-body">
+                                               
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                      <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                      <button type="button" class="btn btn-primary">Save changes</button>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          </div>
+                              </div>
+                            <?php
+                            }
+                            ?>
+                
                 </div>
 
               </div>
