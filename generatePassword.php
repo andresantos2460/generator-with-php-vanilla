@@ -1,6 +1,6 @@
 <?php
 require 'db_connection.php';
-
+require_once 'config.php';
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
@@ -10,6 +10,14 @@ if (!isset($_SESSION['user_id'])) {
 if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); 
 }
+// encrypt
+
+function encryptPassword($password) {
+    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length(ENCRYPTION_METHOD)); // Gera um IV seguro
+    $encryptedPassword = openssl_encrypt($password, ENCRYPTION_METHOD, ENCRYPTION_KEY, 0, $iv);
+    return base64_encode($iv . $encryptedPassword); // Armazena o IV junto com o texto criptografado
+}
+
 // verify length
 function verifyLength($length){
     if(empty($length)){
@@ -93,7 +101,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     // app date
     $name=$_POST['name'];
     $email=$_POST['email'];
-
     if(empty($name) || empty($email)){
         $errorMessage = "Name or email empty";
         header("Location: /index?error=" . urlencode($errorMessage));
@@ -107,7 +114,16 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
    
     $generatedPassword=generatePassword($numbers,$symbols,$length);
 
-    echo htmlspecialchars("$name,$email,$numbers,$symbols,$length");
-    echo ("<br> password:'$generatedPassword'");
+    $hashedPassword = encryptPassword($generatedPassword);
+    $stmt = $pdo->prepare("INSERT INTO generator (user_id, app_name,app_email, app_password) VALUES (:user_id, :appName,:appEmail, :password)");
 
+    $stmt->execute([
+        ':user_id' => $_SESSION['user_id'],          
+        ':appName' => $name,       
+        ':appEmail' => $email,      
+        ':password' => $hashedPassword  
+    ]);
+    $successMessage="Sucesso!";
+    header("Location: /index?success=" . urlencode($successMessage));
+    
 }
