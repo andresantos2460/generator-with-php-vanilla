@@ -5,7 +5,7 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: /login');
     exit(); 
 }
-$stmt = $pdo->prepare("SELECT app_name, app_email FROM generator WHERE user_id = :user_id");
+$stmt = $pdo->prepare("SELECT id, app_name, app_email FROM generator WHERE user_id = :user_id");
 $stmt->execute([
   ':user_id' => $_SESSION['user_id']
 ]);
@@ -547,7 +547,7 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <!-- Actions dropdown menu -->
                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                                   <div class="menu-item px-3">
-                                    <button type="submit" class="btn btn-sm w-100 btn-light-primary px-3" data-bs-toggle="modal" data-bs-target="#kt_modal_stacked_1">Delete</button>
+                                    <button type="button" class="btn btn-sm w-100 btn-light-primary px-3" data-bs-toggle="modal" data-bs-target="#kt_modal_stacked_1">Delete</button>
                                   </div>
                                 </div>
                                 <!-- modal delete ! -->
@@ -564,9 +564,12 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                   </div>
 
                                                   <div class="modal-body">
+                                                    <form method="POST" action="deletePassword.php">
+							                                      <input type="hidden" name="token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                                                    <input type="hidden" name="product_id" value="<?php echo $result['id']; ?>">
                                                   <div data-kt-password-meter="true">
                                                    <div class="position-relative mb-3">
-                                                  <input class="form-control form-control-lg form-control-solid" type="password" placeholder="" name="new_password" autocomplete="off" />
+                                                  <input class="form-control form-control-lg form-control-solid" type="password"  name="code" autocomplete="off" />
 
                                                   <!--begin::Visibility toggle-->
                                                   <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
@@ -579,8 +582,9 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                   </div>
                                                   <div class="modal-footer">
                                                       <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                                      <button type="button" class="btn btn-primary">Save changes</button>
+                                                      <button type="submit" class="btn btn-danger">Delete</button>
                                                   </div>
+                                                </form>
                                               </div>
                                           </div>
                                           </div>
