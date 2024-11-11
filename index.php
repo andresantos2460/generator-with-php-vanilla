@@ -5,13 +5,19 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: /login');
     exit(); 
 }
+
 $stmt = $pdo->prepare("SELECT id, app_name, app_email FROM generator WHERE user_id = :user_id");
 $stmt->execute([
   ':user_id' => $_SESSION['user_id']
 ]);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+if (isset($_SESSION['decrypted_password'])) {
+  $decryptedPassword = $_SESSION['decrypted_password'];
 
+  // Exibir ou usar a senha conforme necessário
+  echo "Senha Descriptografada: " . htmlspecialchars($decryptedPassword);
+} 
 
 ?>
 <!DOCTYPE html>
@@ -489,7 +495,7 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
                   <div class="table-titles item-table d-flex justify-content-between">
                     <span class="dt-column-title"><b>APP</b></span>
                     <span class="dt-column-title"><b>Email</b></span>
-                    <span class="dt-column-title"><b>Passoword</b></span>
+                    <span class="dt-column-title"><b>Password</b></span>
                     <span class="dt-column-title"><b>Action</b></span>
                   </div>
                       <?php
@@ -593,7 +599,7 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h3 class="modal-title">See My Password</h3>
+                                                        <h3 class="modal-title">Show My Password</h3>
                                                         <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
                                                             <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
                                                         </div>
@@ -620,7 +626,7 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                         <button type="submit" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-eye me-2" viewBox="0 0 16 16">
                                                           <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
                                                           <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
-                                                        </svg>Ver Password</button>
+                                                        </svg>Show Password</button>
                                                     </div>
                                                   </form>
                                                 </div>

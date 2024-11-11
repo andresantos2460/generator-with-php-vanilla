@@ -28,3 +28,50 @@ function verifyCode($code,$pdo){
     
     return $verifiedCode;
 }
+function decryptPassword($encryptedPassword) {
+    $encryptedPassword = base64_decode($encryptedPassword);
+    $ivLength = openssl_cipher_iv_length(ENCRYPTION_METHOD);
+    $iv = substr($encryptedPassword, 0, $ivLength); 
+    $encryptedPassword = substr($encryptedPassword, $ivLength); 
+    return openssl_decrypt($encryptedPassword, ENCRYPTION_METHOD, ENCRYPTION_KEY, 0, $iv);
+}
+
+function showPassword($password_id,$pdo){
+    $stmt = $pdo->prepare('SELECT app_password FROM generator WHERE id=:password_id AND user_id= :user_id ');
+    $stmt->execute([
+        ':password_id' => $password_id,
+        ':user_id' => $_SESSION['user_id']
+        ]);
+    $encryptedPassword = $stmt->fetchColumn();
+    if ($encryptedPassword) {
+        $originalPassword = decryptPassword($encryptedPassword);
+        return $originalPassword;
+    } else {
+        return 'false';
+    }
+
+}
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password_id']) && isset($_POST['code'])) {
+
+    $verifiedCode=verifyCode($_POST['code'],$pdo);
+    $password_id=$_POST['password_id'];
+
+    if($verifiedCode=='true'){
+        $originalPassword=showPassword($password_id,$pdo);
+    }
+
+    if($originalPassword=='false'){
+            $errorMessage = "Error Showing the Passwr!";
+            header("Location: /index?error=" . urlencode($errorMessage));
+            exit();
+     }
+     $_SESSION['decrypted_password'] = $originalPassword;
+     $successMessage ='Success';
+     header("Location: /index?success=" . urlencode($successMessage));
+     exit();
+
+    }else{
+    $errorMessage = "Something Wrong!";
+    header("Location: /index?error=" . urlencode($errorMessage));
+    exit();
+}
