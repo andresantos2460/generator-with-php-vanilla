@@ -23,27 +23,31 @@ function myFunction() {
     document.body.removeChild(tempInput);
   }
 }
+document.addEventListener('DOMContentLoaded', () => {
+  // Seleciona todos os botões de copiar
+  const rows = document.querySelectorAll('.item-row');
 
-const target = document.getElementById('kt_clipboard_1');
-const button = target.nextElementSibling;
+  rows.forEach(row => {
+      // Obtém o botão de cópia e o campo de senha para esta linha
+      const button = row.querySelector('.copy-btn');
+      const target = row.querySelector('.password-field');
 
-var clipboard = new ClipboardJS(button, {
-    target: target,
-    text: function() {
-        return target.value;
-    }
-});
+      // Configura o Clipboard.js para esta linha específica
+      const clipboard = new ClipboardJS(button, {
+          target: () => target, // Define o campo de entrada de senha como alvo do Clipboard.js
+      });
 
-clipboard.on('success', function(e) {
-    const currentLabel = button.innerHTML;
-
-    if(button.innerHTML === 'Copied!'){
-        return;
-    }
-
-    button.innerHTML = 'Copied!';
-
-    setTimeout(function(){
-        button.innerHTML = currentLabel;
-    }, 3000)
+      // Evento de sucesso na cópia
+      clipboard.on('success', () => {
+          const originalText = button.innerHTML;
+          
+          // Muda o texto do botão para "Copied!"
+          button.innerHTML = 'Copied!';
+          
+          // Restaura o texto após 3 segundos
+          setTimeout(() => {
+              button.innerHTML = originalText;
+          }, 3000);
+      });
+  });
 });

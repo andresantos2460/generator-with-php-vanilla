@@ -66,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password_id']) && isse
             exit();
      }
      $_SESSION['decrypted_password'] = $originalPassword;
+     $_SESSION['decrypted_password_id'] = $password_id;
      $successMessage ='Success';
      header("Location: /index?success=" . urlencode($successMessage));
      exit();

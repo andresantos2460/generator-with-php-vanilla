@@ -12,12 +12,16 @@ $stmt->execute([
 ]);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if (isset($_SESSION['decrypted_password'])) {
+if (isset($_SESSION['decrypted_password'])&& $_SESSION['decrypted_password_id']) {
   $decryptedPassword = $_SESSION['decrypted_password'];
+  $decryptedPasswordId=$_SESSION['decrypted_password_id'];
+  
 
-  // Exibir ou usar a senha conforme necessário
-  echo "Senha Descriptografada: " . htmlspecialchars($decryptedPassword);
+  unset($_SESSION['decrypted_password']);
+  unset($_SESSION['decrypted_password_id']);
+
 } 
+
 
 ?>
 <!DOCTYPE html>
@@ -527,13 +531,31 @@ if (isset($_SESSION['decrypted_password'])) {
                                 
                                 <!-- App Email -->
                                 <span><?php echo htmlspecialchars($result['app_email']); ?></span>
-                                
-                                <!-- Card for password field -->
-                                <div class="card border-0">
+                                <!-- if has show password -->
+                                 <?php 
+                                 if(!empty($decryptedPassword) && !empty($decryptedPasswordId) && $decryptedPasswordId == $result['id']){
+                              
+                                  ?>
+                                  <div class="card border-0 item-row">
+                                    <div class="card-body">
+                                        <div class="input-group">
+                                            <input id="kt_clipboard_<?php echo $result['id']; ?>" type="text" class="form-control password-field" value="<?php echo htmlspecialchars($decryptedPassword); ?>">
+                                            <button class="btn btn-light-primary copy-btn" data-clipboard-target="#kt_clipboard_<?php echo $result['id']; ?>">
+                                                Copy
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                  <?php
+                                } else{
+                                  ?>
+                                  <!-- not has show password -->
+                                      
+                               <div class="card border-0">
                                   <div class="card-body">
                                     <div class="input-group">
                                       <input disabled type="text" class="form-control" value="**********" />
-                                      <button class="btn btn-light-primary" type="button" data-bs-toggle="modal" data-bs-target="#kt_modal_stacked_see">
+                                      <button class="btn btn-light-primary" type="button" data-bs-toggle="modal" data-bs-target="#kt_modal_stacked_<?php echo $result['id']; ?>">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
                                           <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z" />
                                           <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829" />
@@ -542,7 +564,11 @@ if (isset($_SESSION['decrypted_password'])) {
                                       </button>
                                     </div>
                                   </div>
-                                </div>
+                                </div> 
+                                  <?php
+                                }
+                                 ?>
+                            
                                 
                                 <!-- Actions button -->
                                 <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
@@ -552,13 +578,13 @@ if (isset($_SESSION['decrypted_password'])) {
                                 <!-- Actions dropdown menu -->
                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                                   <div class="menu-item px-3">
-                                    <button type="button" class="btn btn-sm w-100 btn-light-primary px-3" data-bs-toggle="modal" data-bs-target="#kt_modal_stacked_1">Delete</button>
+                                    <button type="button" class="btn btn-sm w-100 btn-light-primary px-3" data-bs-toggle="modal" data-bs-target="#kt_modal_delete_<?php echo $result['id']; ?>">Delete</button>
                                   </div>
                                 </div>
                                 <!-- modal delete ! -->
 
                                                                           
-                                          <div class="modal fade" tabindex="-1" id="kt_modal_stacked_1">
+                                          <div class="modal fade" tabindex="-1" id="kt_modal_delete_<?php echo $result['id']; ?>">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -595,7 +621,7 @@ if (isset($_SESSION['decrypted_password'])) {
                                           </div>
 
                                           <!-- modal see -->
-                                          <div class="modal fade" tabindex="-1" id="kt_modal_stacked_see">
+                                          <div class="modal fade" tabindex="-1" id="kt_modal_stacked_<?php echo $result['id']; ?>">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
