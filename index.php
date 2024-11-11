@@ -198,7 +198,7 @@ if (isset($_SESSION['decrypted_password'])&& $_SESSION['decrypted_password_id'])
 
 
 
-                      <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_export_users">
+                      <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_export_222">
                         <i class="ki-duotone ki-exit-up fs-2">
                           <span class="path1"></span>
                           <span class="path2"></span>
@@ -218,84 +218,42 @@ if (isset($_SESSION['decrypted_password'])&& $_SESSION['decrypted_password_id'])
                       <button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Delete Selected</button>
                     </div>
 
+                    <div class="modal fade" tabindex="-1" id="kt_modal_export_222">
+                      <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h3 class="modal-title">Export to .CSV</h3>
+                                  <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                      <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                  </div>
+                              </div>
+                              <div class="modal-body">
+                                <form method="POST" action="exportData.php">
+                                <input type="hidden" name="token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                              <div data-kt-password-meter="true">
+                              <div class="position-relative mb-3">
+                              <input class="form-control form-control-lg form-control-solid" type="password" placeholder="2234" name="code" autocomplete="off" />
 
-                    <div class="modal fade" id="kt_modal_export_users" tabindex="-1" aria-hidden="true">
-
-                      <div class="modal-dialog modal-dialog-centered mw-650px">
-
-                        <div class="modal-content">
-
-                          <div class="modal-header">
-
-                            <h2 class="fw-bold">Export Users</h2>
-
-
-                            <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
-                              <i class="ki-duotone ki-cross fs-1">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                              </i>
+                              <!--begin::Visibility toggle-->
+                              <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
+                                <i class="ki-duotone ki-eye-slash fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                <i class="ki-duotone ki-eye d-none fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                              </span>
+                              <!--end::Visibility toggle-->
                             </div>
-
-                          </div>
-
-
-                          <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-
-                            <form id="kt_modal_export_users_form" class="form" action="#">
-
-                              <div class="fv-row mb-10">
-
-                                <label class="fs-6 fw-semibold form-label mb-2">Select Roles:</label>
-
-
-                                <select name="role" data-control="select2" data-placeholder="Select a role" data-hide-search="true" class="form-select form-select-solid fw-bold">
-                                  <option></option>
-                                  <option value="Administrator">Administrator</option>
-                                  <option value="Analyst">Analyst</option>
-                                  <option value="Developer">Developer</option>
-                                  <option value="Support">Support</option>
-                                  <option value="Trial">Trial</option>
-                                </select>
-
+                            </div>
                               </div>
-
-
-                              <div class="fv-row mb-10">
-
-                                <label class="required fs-6 fw-semibold form-label mb-2">Select Export Format:</label>
-
-
-                                <select name="format" data-control="select2" data-placeholder="Select a format" data-hide-search="true" class="form-select form-select-solid fw-bold">
-                                  <option></option>
-                                  <option value="excel">Excel</option>
-                                  <option value="pdf">PDF</option>
-                                  <option value="cvs">CVS</option>
-                                  <option value="zip">ZIP</option>
-                                </select>
-
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-eye me-2" viewBox="0 0 16 16">
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                  </svg>Show Password</button>
                               </div>
-
-
-                              <div class="text-center">
-                                <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Discard</button>
-                                <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-                                  <span class="indicator-label">Submit</span>
-                                  <span class="indicator-progress">Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                </button>
-                              </div>
-
                             </form>
-
                           </div>
-
-                        </div>
-
                       </div>
-
                     </div>
-
 
                     <div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
 
