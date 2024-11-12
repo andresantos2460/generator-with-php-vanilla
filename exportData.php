@@ -51,7 +51,52 @@ function showPassword($password_id,$pdo){
     }
 
 }
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password_id']) && isset($_POST['code'])) {
+
+function exportData($pdo)
+{
+    $userID = $_SESSION['user_id'];
+
+    $stmt = $pdo->prepare('SELECT app_name, app_email, app_password FROM generator WHERE user_id = :user_id');
+    $stmt->execute([':user_id' => $userID]);
+
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (empty($results)) {
+        $errorMessage="No Passwords Available to Export!";
+        header("Location: index.php?error=" . urlencode($errorMessage));
+        exit();
+    }
+
+    $fileName = 'passwords_export_' . $userID . '.csv';
+
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="' . $fileName . '"');
+
+    $output = fopen('php://output', 'w');
+
+    fputcsv($output, ['name', 'url', 'username', 'password']);
+
+    foreach ($results as $row) {
+        $decryptedPassword = decryptPassword($row['app_password']);
+        fputcsv($output, [
+            $row['app_name'],   // name
+            '',                // url (deixe vazio, se não houver)
+            $row['app_email'], // username
+            $decryptedPassword,  // password
+        ]);
+    }
+
+    fclose($output);
+    $successMessage="CSV File Exported With Success!";
+    header("Location: index.php?success=" . urlencode($successMessage));
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['code'])) {
 
     $verifiedCode=verifyCode($_POST['code'],$pdo);
+    $total=exportData($pdo);
+
+}else{
+    echo "preenche dados!";
 }
