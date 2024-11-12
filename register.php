@@ -218,7 +218,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <label class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" required name="toc" value="1" />
                                     <span class="form-check-label fw-semibold text-gray-700 fs-base ms-1">I Accept the
-                                        <a href="#" class="ms-1 link-primary">Terms</a></span>
+                                        <a href="terms.html" class="ms-1 link-primary">Terms</a></span>
                                 </label>
                             </div>
 

@@ -263,12 +263,12 @@ if (isset($_SESSION['decrypted_password'])&& $_SESSION['decrypted_password_id'])
                             <h2 class="fw-bold">New Password</h2>
 
 
-                            <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
+                            <button class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal" aria-label="Close">
                               <i class="ki-duotone ki-cross fs-1">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
                               </i>
-                            </div>
+                              </button>
 
                           </div>
 
