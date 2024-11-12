@@ -62,40 +62,45 @@ function exportData($pdo)
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (empty($results)) {
-        $errorMessage="No Passwords Available to Export!";
+        $errorMessage = "No Passwords Available to Export!";
         header("Location: index.php?error=" . urlencode($errorMessage));
         exit();
     }
 
     $fileName = 'passwords_export_' . $userID . '.csv';
 
+    // Set headers for file download
     header('Content-Type: text/csv');
     header('Content-Disposition: attachment; filename="' . $fileName . '"');
 
+    // Open PHP output stream as CSV file
     $output = fopen('php://output', 'w');
 
+    // Write CSV column headers
     fputcsv($output, ['name', 'url', 'username', 'password']);
 
+    // Write each row of data to CSV
     foreach ($results as $row) {
         $decryptedPassword = decryptPassword($row['app_password']);
         fputcsv($output, [
             $row['app_name'],   // name
-            '',                // url (deixe vazio, se não houver)
-            $row['app_email'], // username
-            $decryptedPassword,  // password
+            '',                 // url (leave empty if not available)
+            $row['app_email'],  // username
+            $decryptedPassword, // password
         ]);
     }
 
+    // Close output stream
     fclose($output);
-    $successMessage="CSV File Exported With Success!";
-    header("Location: index.php?success=" . urlencode($successMessage));
+
+    // End the script to ensure only the CSV is sent
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['code'])) {
 
     $verifiedCode=verifyCode($_POST['code'],$pdo);
-    $total=exportData($pdo);
+    exportData($pdo);
 
 }else{
     echo "preenche dados!";
