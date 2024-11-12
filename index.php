@@ -39,7 +39,7 @@ if (isset($_SESSION['decrypted_password'])&& $_SESSION['decrypted_password_id'])
 		<link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Generator</title>
+    <title>Password Genius</title>
 </head>
 <body>
 <div class="container pt-5">
@@ -196,17 +196,14 @@ if (isset($_SESSION['decrypted_password'])&& $_SESSION['decrypted_password_id'])
 
                       </div>
 
-
-
-                      <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_export_222">
-                        <i class="ki-duotone ki-exit-up fs-2">
-                          <span class="path1"></span>
-                          <span class="path2"></span>
-                        </i>Export</button>
+                        <button type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_export_222">
+                            <img width="20px" src="images/excel-svgrepo-com.svg">
+                            Export Data
+                        </button>
 
 
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
-                        <i class="ki-duotone ki-plus fs-2"></i>Add User</button>
+                        <i class="ki-duotone ki-plus fs-2"></i>Create Password</button>
 
                     </div>
 
@@ -627,21 +624,9 @@ if (isset($_SESSION['decrypted_password'])&& $_SESSION['decrypted_password_id'])
 
             <div class="text-gray-900 order-2 order-md-1">
               <span class="text-muted fw-semibold me-1">2024&copy; Created by </span>
-              <a href="#" target="_blank" class="text-gray-800 text-hover-primary">André Santos</a>
+              <a href="https://github.com/andresantos2460" target="_blank" class="text-gray-800 text-hover-primary">André Santos</a>
             </div>
 
-
-            <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-              <li class="menu-item">
-                <a href="https://keenthemes.com" target="_blank" class="menu-link px-2">About</a>
-              </li>
-              <li class="menu-item">
-                <a href="https://devs.keenthemes.com" target="_blank" class="menu-link px-2">Support</a>
-              </li>
-              <li class="menu-item">
-                <a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">Purchase</a>
-              </li>
-            </ul>
 
           </div>
 

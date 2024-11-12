@@ -129,7 +129,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
-    <title>Criar Conta</title>
+    <title>Create Account</title>
 </head>
 
 
