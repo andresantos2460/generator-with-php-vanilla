@@ -2,8 +2,8 @@
 require 'db_connection.php';
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /login');
-    exit(); 
+    header('Location: login.php');
+    exit();
 }
 
 $stmt = $pdo->prepare("SELECT id, app_name, app_email FROM generator WHERE user_id = :user_id");
@@ -93,7 +93,7 @@ if (isset($_SESSION['decrypted_password'])&& $_SESSION['decrypted_password_id'])
 
             <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
 
-            <img width="250px" src="images/mylogo.png" alt="Santos WebServices!">
+            <img width="200px" src="images/mylogo.png" alt="Santos WebServices!">
 
 
               <div class="d-flex align-items-center gap-2 gap-lg-3">

@@ -4,7 +4,7 @@ require_once 'config.php';
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /login');
+    header('Location: login.php');
     exit(); 
 }
 if (!isset($_SESSION['csrf_token'])) {
@@ -22,12 +22,12 @@ function encryptPassword($password) {
 function verifyLength($length){
     if(empty($length)){
         $errorMessage = "Length Empty";
-        header("Location: /index?error=" . urlencode($errorMessage));
+        header("Location: index.php?error=" . urlencode($errorMessage));
         exit();
     }
     if($length!=='small_characters'&& $length!=='large_characters'){
         $errorMessage = "Values of Length Changed";
-        header("Location: /index?error=" . urlencode($errorMessage));
+        header("Location: index.php?error=" . urlencode($errorMessage));
         exit();
     }
 
@@ -94,7 +94,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     // verigy token
     if($_POST['token']!=$_SESSION['csrf_token']){
         $errorMessage = "os tokens nao combinam";
-        header("Location: /index?error=" . urlencode($errorMessage));
+        header("Location: index.php?error=" . urlencode($errorMessage));
         exit();
     }
 
@@ -103,7 +103,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     $email=$_POST['email'];
     if(empty($name) || empty($email)){
         $errorMessage = "Name or email empty";
-        header("Location: /index?error=" . urlencode($errorMessage));
+        header("Location: index.php?error=" . urlencode($errorMessage));
         exit();
     }
 
@@ -124,6 +124,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         ':password' => $hashedPassword  
     ]);
     $successMessage="Sucesso!";
-    header("Location: /index?success=" . urlencode($successMessage));
+    header("Location: index.php?success=" . urlencode($successMessage));
     
 }

@@ -4,7 +4,7 @@ require_once 'config.php';
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /login');
+    header('Location: login.php');
     exit(); 
 }
 if (!isset($_SESSION['csrf_token'])) {
@@ -21,7 +21,7 @@ function verifyCode($code,$pdo){
 
     if($codeFromDB!=$code){
         $errorMessage = "Wrong Code!";
-        header("Location: /index?error=" . urlencode($errorMessage));
+        header("Location: index.php?error=" . urlencode($errorMessage));
         exit();
     }else{
         $verifiedCode='true';
@@ -47,7 +47,7 @@ function verifyCode($code,$pdo){
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id']) && isset($_POST['code'])) {
     if($_POST['token']!=$_SESSION['csrf_token']){
         $errorMessage = "os tokens nao combinam";
-        header("Location: /index?error=" . urlencode($errorMessage));
+        header("Location: index.php?error=" . urlencode($errorMessage));
         exit();
     }
     $password_id = $_POST['product_id'];
@@ -55,11 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id']) && isset
     $result=deletePassword($password_id, $pdo);
     if($result) {
         $successMessage = "Password Deleted !";
-        header("Location: /index?success=" . urlencode($successMessage));
+        header("Location: index.php?success=" . urlencode($successMessage));
         exit();
     }else{
         $errorMessage = "Error Deleting the Password";
-        header("Location: /index?error=" . urlencode($errorMessage));
+        header("Location: index.php?error=" . urlencode($errorMessage));
         exit();
     }
    

@@ -4,7 +4,7 @@ require_once 'config.php';
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /login');
+    header('Location: login.php');
     exit(); 
 }
 if (!isset($_SESSION['csrf_token'])) {
@@ -20,7 +20,7 @@ function verifyCode($code,$pdo){
 
     if($codeFromDB!=$code){
         $errorMessage = "Wrong Code!";
-        header("Location: /index?error=" . urlencode($errorMessage));
+        header("Location: index.php?error=" . urlencode($errorMessage));
         exit();
     }else{
         $verifiedCode='true';

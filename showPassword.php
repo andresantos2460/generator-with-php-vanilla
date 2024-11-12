@@ -4,7 +4,7 @@ require_once 'config.php';
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /login');
+    header('Location: login.php');
     exit(); 
 }
 if (!isset($_SESSION['csrf_token'])) {
@@ -20,7 +20,7 @@ function verifyCode($code,$pdo){
 
     if($codeFromDB!=$code){
         $errorMessage = "Wrong Code!";
-        header("Location: /index?error=" . urlencode($errorMessage));
+        header("Location: index.php?error=" . urlencode($errorMessage));
         exit();
     }else{
         $verifiedCode='true';
@@ -62,17 +62,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password_id']) && isse
 
     if($originalPassword=='false'){
             $errorMessage = "Error Showing the Passwr!";
-            header("Location: /index?error=" . urlencode($errorMessage));
+            header("Location: index.php?error=" . urlencode($errorMessage));
             exit();
      }
      $_SESSION['decrypted_password'] = $originalPassword;
      $_SESSION['decrypted_password_id'] = $password_id;
      $successMessage ='Success';
-     header("Location: /index?success=" . urlencode($successMessage));
+     header("Location: index.php?success=" . urlencode($successMessage));
      exit();
 
     }else{
     $errorMessage = "Something Wrong!";
-    header("Location: /index?error=" . urlencode($errorMessage));
+    header("Location: index.php?error=" . urlencode($errorMessage));
     exit();
 }
