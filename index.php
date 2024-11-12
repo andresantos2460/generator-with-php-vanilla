@@ -471,7 +471,7 @@ if (isset($_SESSION['decrypted_password'])&& $_SESSION['decrypted_password_id'])
                          <?php
                             foreach ($results as $result) {
                             ?>
-                              <div class="item d-flex py-4 item-table align-items-center justify-content-between">
+                              <div class="item d-flex py-4 item-table password-table-row">
                                 
                                 <!-- App Name -->
                                 <span><?php echo htmlspecialchars($result['app_name']); ?></span>
@@ -484,7 +484,7 @@ if (isset($_SESSION['decrypted_password'])&& $_SESSION['decrypted_password_id'])
                               
                                   ?>
                                   <div class="card border-0 item-row">
-                                    <div class="card-body">
+                                    <div class="card-body see-pass">
                                         <div class="input-group">
                                             <input id="kt_clipboard_<?php echo $result['id']; ?>" type="text" class="form-control password-field" value="<?php echo htmlspecialchars($decryptedPassword); ?>">
                                             <button class="btn btn-light-primary copy-btn" data-clipboard-target="#kt_clipboard_<?php echo $result['id']; ?>">
@@ -499,7 +499,7 @@ if (isset($_SESSION['decrypted_password'])&& $_SESSION['decrypted_password_id'])
                                   <!-- not has show password -->
                                       
                                <div class="card border-0">
-                                  <div class="card-body">
+                                  <div class="card-body see-pass">
                                     <div class="input-group">
                                       <input disabled type="text" class="form-control" value="**********" />
                                       <button class="btn btn-light-primary" type="button" data-bs-toggle="modal" data-bs-target="#kt_modal_stacked_<?php echo $result['id']; ?>">

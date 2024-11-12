@@ -145,3 +145,19 @@
 .input-box span:hover {
   color: #46495E!important;
 }
+.password-table-row{
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media(max-width:550px){
+  .password-table-row{
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .see-pass{
+    padding: 0px !important;
+  }
+}
