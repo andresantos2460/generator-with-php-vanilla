@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="style.css">
 
     <link rel="canonical" href="http://authentication/layouts/corporate/sign-up.html" />
-    <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+    <link rel="shortcut icon" href="images/icon.png" />
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -178,25 +178,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100">
 
-                    <a href="index.html" class="mb-0 mb-lg-12">
-                        <img alt="Logo" src="assets/media/logos/custom-1.png" class="h-60px h-lg-75px" />
+                    <a href="login.php" class="mb-0 mb-lg-12">
+                        <img alt="Logo" src="images/mylogo.png" class="h-60px h-lg-100px" />
                     </a>
 
 
-                    <img class="d-none d-lg-block mx-auto w-275px w-md-50 w-xl-500px mb-10 mb-lg-20"
-                        src="assets/media/misc/auth-screens.png" alt="" />
+                    <img class="d-none d-lg-block rounded mx-auto w-500px mb-10 mb-lg-20"
+                        src="images/home_print.png" alt="" />
 
 
                     <h1 class="d-none d-lg-block text-white fs-2qx fw-bolder text-center mb-7">Fast, Efficient and
                         Productive</h1>
 
 
-                    <div class="d-none d-lg-block text-white fs-base text-center">In this kind of post,
-                        <a href="#" class="opacity-75-hover text-warning fw-bold me-1">the blogger</a>introduces a
-                        person they’ve interviewed
-                        <br />and provides some background information about
-                        <a href="#" class="opacity-75-hover text-warning fw-bold me-1">the interviewee</a>and their
-                        <br />work following this is a transcript of the interview.
+                    <div class="d-none d-lg-block text-white fs-base text-center">
+                        In today’s digital world, strong passwords are your first line of defense against cyber threats. Our <b>Password genius</b> ensures you can create highly secure and unique passwords with just a click, giving you peace of mind for every account you manage.
                     </div>
 
                 </div>
