@@ -93,7 +93,7 @@ if (isset($_SESSION['decrypted_password'])&& $_SESSION['decrypted_password_id'])
 
             <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
 
-           <a href="index.php"><img width="200px" src="images/mylogo.png" alt="Santos WebServices!"></a>
+           <a href="index.php"><img width="200px" src="images/mylogo (1).png" alt="Santos WebServices!"></a>
 
 
               <div class="d-flex align-items-center gap-2 gap-lg-3">

@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100">
 
                     <a href="login.php" class="mb-0 mb-lg-12">
-                        <img alt="Logo" src="images/mylogo.png" class="h-60px h-lg-100px" />
+                        <img alt="Logo" src="images/mylogo (1).png" class="h-60px h-lg-100px" />
                     </a>
 
 
