@@ -101,8 +101,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     // app date
     $name=$_POST['name'];
     $email=$_POST['email'];
-    if(empty($name) || empty($email)){
-        $errorMessage = "Name or email empty";
+    if(empty($name)){
+        $errorMessage = "Name empty";
         header("Location: index.php?error=" . urlencode($errorMessage));
         exit();
     }

@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                             <div class="fv-row mb-8">
 
-                                <input required type="text" placeholder="Email" name="email" autocomplete="off"
+                                <input required type="email" placeholder="Email" name="email" required autocomplete="off"
                                     class="form-control bg-transparent" />
 
                             </div>
@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                     <div class="position-relative mb-3">
                                         <input required class="form-control bg-transparent" type="password"
-                                            placeholder="Password" name="password" autocomplete="off" />
+                                            placeholder="Password" name="password" required autocomplete="off" />
                                         <span
                                             class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
                                             data-kt-password-meter-control="visibility">

@@ -291,7 +291,7 @@ if (isset($_SESSION['decrypted_password'])&& $_SESSION['decrypted_password_id'])
 
                                 <div class="fv-row mb-7">
 
-                                  <label class="required fw-semibold fs-6 mb-2">Email</label>
+                                  <label class=" fw-semibold fs-6 mb-2">Email</label>
 
 
                                   <input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com" />
