@@ -34,7 +34,7 @@ Even though I haven't mastered the language yet, I feel that this project has he
 - You only need to import the repository database!
 ## License
 
-Adicione etiquetas de algum lugar, como: [shields.io](https://shields.io/)
+
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
