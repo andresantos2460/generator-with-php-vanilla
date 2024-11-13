@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                             <div class="fv-row mb-8">
 
-                                <input required type="email" placeholder="Email" name="email" required autocomplete="off"
+                                <input required type="email" placeholder="Email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email'], ENT_QUOTES) : ''; ?>" name="email" required autocomplete="off"
                                     class="form-control bg-transparent" />
 
                             </div>
