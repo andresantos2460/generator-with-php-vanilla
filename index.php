@@ -111,9 +111,9 @@ if (isset($_SESSION['decrypted_password'])&& $_SESSION['decrypted_password_id'])
                   </div>
 
 
-                  <div class="card-toolbar">
+                  <div class="card-toolbar mobile-toolbar">
 
-                    <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                    <div class="d-flex justify-content-end mobile-toolbar" data-kt-user-table-toolbar="base">
 
 
                       <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
@@ -159,15 +159,18 @@ if (isset($_SESSION['decrypted_password'])&& $_SESSION['decrypted_password_id'])
 
                       </div>
 
-                        <button type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_export_222">
+                        <button type="button" class="btn btn-sm  btn-success me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_export_222">
                             <img width="20px" src="images/excel-svgrepo-com.svg">
                             Export Data
                         </button>
 
+                        <button type="button" class="btn btn-sm  btn-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_add_passworduser">
+                        <i class="bi bi-bookmarks fs-2"></i>Add  Password</button>
 
-                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
+                      <button type="button" class="btn btn-sm  btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
                         <i class="ki-duotone ki-plus fs-2"></i>Create Password</button>
-
+                        
+                   
                     </div>
 
 
@@ -361,6 +364,41 @@ if (isset($_SESSION['decrypted_password'])&& $_SESSION['decrypted_password_id'])
 
                     </div>
 
+                    <!-- modal to already have a password -->
+                    <div class="modal fade" id="kt_modal_add_passworduser" tabindex="-1" aria-hidden="true">
+                                       <div class="modal-dialog modal-dialog-centered mw-650px">
+                                           <div class="modal-content">
+                                               <div class="modal-header" id="kt_modal_add_user_header">
+                                                   <h2 class="fw-bold">Add Password</h2> <button class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal" aria-label="Close"> <i class="ki-duotone ki-cross fs-1"> <span class="path1"></span> <span class="path2"></span> </i> </button>
+                                               </div>
+                                               <div class="modal-body px-5 my-7">
+                                                   <form id="" class="form" method="POST" action="addPassword.php">
+                                                       <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px"> <input type="hidden" name="token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                                                           <div class="fv-row mb-7"> <label class="required fw-semibold fs-6 mb-2">App name</label> <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Instagram" /> </div>
+                                                           <div class="fv-row mb-7"> <label class=" fw-semibold fs-6 mb-2">Email</label> <input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com" /> </div>
+                                                          <div class="fv-row" data-kt-password-meter="true">
+                                                              <div class="mb-1">
+                                                                  <label class="form-label fw-semibold fs-6 mb-2">
+                                                                      Password
+                                                                  </label>
+                                                                  <div class="position-relative mb-3">
+                                                                      <input class="form-control form-control-lg form-control-solid"
+                                                                          type="password" placeholder="my new password" name="new_password" autocomplete="off" />
+                                                                      <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                                                                          data-kt-password-meter-control="visibility">
+                                                                              <i class="ki-duotone ki-eye-slash fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                                                              <i class="ki-duotone ki-eye d-none fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                                                      </span>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                       </div>
+                                                       <div class="text-center pt-10"> <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Discard</button> <button type="submit" class="btn btn-primary"> <span class="indicator-label">Submit</span> <span class="indicator-progress">Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span> </button> </div>
+                                                   </form>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
                   </div>
 
                 </div>

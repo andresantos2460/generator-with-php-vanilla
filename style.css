@@ -151,6 +151,14 @@
 }
 
 @media(max-width:550px){
+  .mobile-toolbar{
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .mobile-toolbar > button{
+    margin:  0px !important;
+  }
   .password-table-row{
     justify-content: start;
     align-items: start;
